@@ -1,0 +1,121 @@
+<html ng-app="app">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+
+
+	<script src="/js/angular.js"></script>
+	<script src="/js/d3.min.js"></script>
+
+	<script src="/app/application.js"></script>
+	<script src="/app/NeuralNetwork.js"></script>
+</head>
+<body ng-controller="Controller">
+<div class="container">
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h2 class="panel-title text-center">
+				Artificial Neural Network <button class="pull-right" ng-click="toggle()"> {{action}} </button>
+			</h2>
+			<ul class="nav nav-pills" ng-init="tab = 1">
+				<li ng-class="{active : tab === 1}"><a href ng-click="tab = 1">Instruction</a></li>
+				<li ng-class="{active : tab === 2}"><a href ng-click="tab = 2">Illustration</a></li>
+				<li ng-class="{active : tab === 3}"><a href ng-click="tab = 3">Analyse</a></li>
+			</ul>
+		</div>
+
+		<div class="panel-body text-left" ng-show="tab === 1">
+
+			<p>
+				This application illustrate one of the machine learning algorithm : BP Artificial Neural Network.<br/>
+				To get start :
+			</p>
+
+			<ol>
+				<li>Choose a data file in csv format, or use the default "Wine Quality" fine.</li>
+				<li>Configure the model parameters</li>
+				<li>After the model is built, you can see the model in the "Illustration" tab.</li>
+				<li>Follow the machine learning progress in "Analyse" tab. </li>
+			</ol>
+			<div class="form-group row">
+		    	<label class="col-md-2">File input (csv format) : </label>
+		    	<div class="col-md-6">
+		    		<span class="btn btn-default btn-file btn-xs">
+					    Browse... <input type="file" value="choose a csv file" accept=".csv" ng-model="csvData" on-read-file="chargeFile($fileContent)" />
+					</span>
+					or
+					<button type="button" class="btn btn-default btn-xs" ng-click="chargeDefaultFile()">try default file</button>
+				</div>
+		  	</div>
+
+		  	<form class="row" id="config-form" ng-show='columns && columns.length'>
+		  		<div class="col-md-5">
+	  				<h5>Column</h5>
+	  				<ul class="list-unstyled">
+	  					<li ng-repeat="column in columns track by $index">
+							<div class="row">
+								<div class="col-md-5"> {{ column }} </div>
+								<div class="col-md-7">
+			  					<label class="radio-inline">
+									<input type="radio" value="1" ng-model="columnRadios[$index]"> input
+								</label>
+								<label class="radio-inline">
+									<input type="radio" value="2" ng-model="columnRadios[$index]"> output
+								</label>
+								<label class="radio-inline">
+									<input type="radio" value="0" ng-model="columnRadios[$index]"> not use
+								</label>
+							</div>
+							</div>
+						</li>
+	  				</ul>
+	  			</div>
+
+	  			<div class="col-md-3">
+	  				<br/><br/>
+	  				<div class="form-group">
+						<label>Learning Speed</label>
+						<input type="number" class="form-control" ng-model="config.learningSpeed" step="0.001">
+					</div>
+					<div class="form-group">
+						<label>Ratio Train/Test</label>
+						<input type="number" class="form-control" ng-model="config.ratioTrainVsTest">
+					</div>
+
+					<div class="form-group">
+						<label>Neuron Number</label>
+						<input type="number" class="form-control" ng-model="config.neuronLength">
+					</div>
+
+					<button type="submit" class="btn btn-default" ng-click="init()">Submit</button>
+	  			</div>
+
+		  	</form>
+
+		</div>
+
+		<div class="panel-body text-center" id="neural-network" ng-show="tab === 2">
+		</div>
+
+		<div class="panel-body text-center" id="error-plot" ng-show="tab === 3">
+		</div>
+
+		<div class="panel-footer">
+			<form name="predictForm" ng-submit="predict(inputs)">
+				<div class="col-md-8">
+					<input type="text" class="form-control" placeholder="Inputs" ng-model="inputs">
+				</div>
+				<div class="col-md-3 form-control-static">
+					Results : <span ng-repeat="result in results">{{result}}</span>
+				</div>
+				<button type="submit" class="btn btn-default">Predict</button>
+			</form>
+		</div>
+	</div>
+
+</div>
+</body>
+
+</html>
