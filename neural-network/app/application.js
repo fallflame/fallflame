@@ -34,7 +34,7 @@ angular.module('app', [])
 	};
 
 	$scope.chargeDefaultFile = function(){
-		$http.get('/data.csv')
+		$http.get('./data.csv')
 		.success(function(data){
 			$scope.chargeFile(data);
 		});
