@@ -29,7 +29,7 @@ sap.ui.define([
 					sMockServerUrl = /.*\/$/.test(oMainDataSource.uri) ? oMainDataSource.uri : oMainDataSource.uri + "/";
 
 				oMockServer = new MockServer({
-					rootUri : sMockServerUrl
+                    rootUri : "/here/goes/your/serviceUrl/"
 				});
 
 				// configure mock server with a delay of 1s
