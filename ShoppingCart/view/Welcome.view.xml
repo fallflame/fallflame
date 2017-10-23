@@ -111,15 +111,15 @@
 								<FlexBox
 									renderType="Bare"
 									justifyContent="Center">
-									<Image
-										src="{
-											path: 'view>Product/PictureUrl',
-											formatter : '.formatter.pictureUrl'
-										}"
-										densityAware="false"
-										press="onPicturePress"
-										width="50%"
-										height="50%"/>
+									<!--<Image-->
+										<!--src="{-->
+											<!--path: 'view>Product/PictureUrl',-->
+											<!--formatter : '.formatter.pictureUrl'-->
+										<!--}"-->
+										<!--densityAware="false"-->
+										<!--press="onPicturePress"-->
+										<!--width="50%"-->
+										<!--height="50%"/>-->
 								</FlexBox>
 								<Button
 									tooltip="{i18n>addToCart}"
